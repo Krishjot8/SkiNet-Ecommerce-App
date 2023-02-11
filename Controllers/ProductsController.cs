@@ -17,7 +17,7 @@ namespace ECommerce_App.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet]////
 
 
         public async Task<ActionResult <List<Product>>> GetProducts()
