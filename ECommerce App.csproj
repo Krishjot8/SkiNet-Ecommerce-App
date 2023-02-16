@@ -5,7 +5,13 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>ECommerce_App</RootNamespace>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Repositories\1uoxxc5h.tlw~" />
+    <None Remove="Repositories\ProductRepository.cs~RF190b2471.TMP" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
@@ -21,6 +27,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+	  
   </ItemGroup>
 
 </Project>
