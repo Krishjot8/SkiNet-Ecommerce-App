@@ -1,6 +1,7 @@
 ﻿using ECommerce_App.Data;
 using ECommerce_App.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace ECommerce_App.Repositories
 {
@@ -34,11 +35,17 @@ namespace ECommerce_App.Repositories
 
         public async Task<List<Product>> GetProductsAsync()
         {
-            return await _context.Products
+            var typeId = 1;
+
+            var products = _context.Products.Where(x => x.ProductTypeId == typeId)
+                .Include(x => x.ProductType).ToListAsync();
+
+
+            return await _context.Products   
                 .Include(p => p.ProductType)
                 .Include(p => p.ProductBrand)
                 .ToListAsync();
-        }
+        }   
 
         public async Task<List<ProductType>> GetProductTypesAsync()
         {

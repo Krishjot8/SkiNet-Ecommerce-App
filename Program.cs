@@ -1,7 +1,11 @@
 using Azure.Identity;
 using ECommerce_App.Data;
+using ECommerce_App.Errors;
+using ECommerce_App.Extensions;
+using ECommerce_App.Middleware;
 using ECommerce_App.Repositories;
 using FluentAssertions.Common;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -14,28 +18,31 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-
-
-        builder.Services.AddScoped<IProductRepository,ProductRepository>();
-
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddApplicationServices(builder.Configuration);
 
-        builder.Services.AddDbContext<StoreContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+       var app = builder.Build();
 
-        var app = builder.Build();
+
+        app.UseMiddleware<ExceptionMiddleware>();
 
         // Configure the HTTP request pipeline.
+
+
+        app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
+
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("v1/swagger.json", "MyAPI V1");
+            });
         }
 
-
+        app.UseStaticFiles();
 
         app.UseAuthorization();
 
