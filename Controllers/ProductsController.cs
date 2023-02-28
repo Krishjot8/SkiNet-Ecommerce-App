@@ -2,6 +2,7 @@
 using ECommerce_App.Data;
 using ECommerce_App.DTOs;
 using ECommerce_App.Errors;
+using ECommerce_App.Helpers;
 using ECommerce_App.Models;
 using ECommerce_App.Repositories;
 using ECommerce_App.Specifications;
@@ -31,13 +32,18 @@ namespace ECommerce_App.Controllers
 
         [HttpGet]
 
-        public async Task<ActionResult <List<ProductToReturnDto>>> GetProducts()
+        public async Task<ActionResult <Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productparams)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var spec = new ProductsWithTypesAndBrandsSpecification(productparams);
+
+            var countSpec = new ProductWithFiltersForCountSpecification(productparams);
+
+            var totalItems = await _productsrepository.CountAsync(countSpec);
 
             var products = await _productsrepository.GetAsync(spec);
-            return Ok(_mapper.Map<List<Product>,List<ProductToReturnDto>>
-                (products));
+
+            var data = _mapper.Map<List<Product>, List<ProductToReturnDto>>(products);
+            return Ok(new Pagination<ProductToReturnDto>(productparams.PageIndex,productparams.PageSize, totalItems, data));
         }
         
 
