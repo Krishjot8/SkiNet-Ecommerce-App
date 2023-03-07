@@ -4,11 +4,7 @@
 
 export const environment = {
   production: false,
-<<<<<<< HEAD
-  
-=======
-  webApi: 'https://localhost:44359/api',
->>>>>>> b1a06e1 (bootstrap and fontawesome added)
+
 };
 
 /*
