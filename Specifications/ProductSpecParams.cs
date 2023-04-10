@@ -1,4 +1,6 @@
-﻿namespace ECommerce_App.Specifications
+﻿
+
+namespace ECommerce_App.Specifications
 {
     public class ProductSpecParams
     {
