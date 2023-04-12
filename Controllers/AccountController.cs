@@ -131,6 +131,15 @@ namespace ECommerce_App.Controllers
         
         {
 
+            if (CheckEmailExistsAsync(registerDto.Email).Result.Value) //Checking for duplicate email address
+            
+            {
+
+                return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "Email Address is in use"}});
+           
+            
+            }
+
             var user = new AppUser
             {
                 DisplayName= registerDto.DisplayName,

@@ -24,6 +24,7 @@ internal class Program
         builder.Services.AddControllers();
         builder.Services.AddApplicationServices(builder.Configuration);
         builder.Services.AddIdentityServices(builder.Configuration);
+        builder.Services.AddSwaggerDocumentation();
 
         var app = builder.Build();
 
@@ -36,15 +37,7 @@ internal class Program
         app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
 
-
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("v1/swagger.json", "MyAPI V1");
-            });
-        }
+        app.UseSwaggerDocumentation();
 
         app.UseStaticFiles();
 

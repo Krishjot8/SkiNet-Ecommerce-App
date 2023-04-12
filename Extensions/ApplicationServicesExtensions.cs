@@ -52,9 +52,7 @@ namespace ECommerce_App.Extensions
                 };
             });
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
+          
 
             services.AddDbContext<StoreContext>(options =>
             options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
