@@ -8,6 +8,7 @@ import { HomeModule } from './home/home.module';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ BrowserAnimationsModule,
     CoreModule,
     HttpClientModule,
     HomeModule,
+    CommonModule
 
   ],
 })

@@ -6,6 +6,7 @@ import { TestErrorComponent } from './core/test-error/test-error.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailsComponent } from './shop/product-details/product-details.component';
 import { ShopComponent } from './shop/shop.component';
+import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
 
@@ -15,7 +16,12 @@ const routes: Routes = [
   {path: 'server-error', component: ServerErrorComponent},
   {path: 'shop', loadChildren: () => import('./shop/shop.module').then(m => m.ShopModule)},
   {path: 'basket', loadChildren: () => import('./basket/basket.module').then(m => m.BasketModule)},
-  {path: 'checkout', loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)},
+  {
+    path: 'checkout',
+    canActivate:[AuthGuard],
+    loadChildren: () => import('./checkout/checkout.module').then(m => m.CheckoutModule)
+  },
+  {path: 'account', loadChildren: () => import('./account/account.module').then(m => m.AccountModule)},
   {path: '**', redirectTo: '', pathMatch: 'full'},
 ];
 
@@ -24,3 +30,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+//if authguard problem see this file or lecture 204 Create auth Guard to login and app-routing-module
