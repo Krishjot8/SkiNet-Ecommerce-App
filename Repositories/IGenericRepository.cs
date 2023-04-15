@@ -16,8 +16,13 @@ namespace ECommerce_App.Repositories
 
         Task<T> GetEntityWithSpec(ISpecification<T> spec);
 
-        Task<List<T>>GetAsync (ISpecification<T> spec);
+        Task<List<T>>GetAsync(ISpecification<T> spec);
 
         Task<int> CountAsync(ISpecification<T> spec);
+        void Add(T entity); 
+
+        void Update(T entity);  
+
+        void Delete(T entity);  
     }
 }

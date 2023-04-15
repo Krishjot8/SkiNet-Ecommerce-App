@@ -1,4 +1,5 @@
 ﻿using ECommerce_App.Models;
+using ECommerce_App.Models.OrderAggregate;
 using System.Text.Json;
 
 namespace ECommerce_App.Data
@@ -23,7 +24,7 @@ namespace ECommerce_App.Data
             {
 
 
-                var typesData = File.ReadAllText("/Udemy/Neil Cummings/eCommerce App/ECommerce App/Data/SeedData/types.json");
+                var typesData = File.ReadAllText("/Udemy/Neil Cummings/eCommerce App/eCommerceApp-API/Data/SeedData/types.json");
                 var types = JsonSerializer.Deserialize<List<ProductType>>(typesData);
                 context.ProductTypes.AddRange(types);
 
@@ -32,13 +33,23 @@ namespace ECommerce_App.Data
             {
 
 
-                var productsData = File.ReadAllText("/Udemy/Neil Cummings/eCommerce App/ECommerce App/Data/SeedData/products.json");
+                var productsData = File.ReadAllText("/Udemy/Neil Cummings/eCommerce App/eCommerceApp-API/Data/SeedData/products.json");
                 var products = JsonSerializer.Deserialize<List<Product>>(productsData);
                 context.Products.AddRange(products);
 
             }
 
-            if(context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();// this will save the changes in the database
+            if (!context.DeliveryMethods.Any())
+            {
+
+
+                var deliveryData = File.ReadAllText("/Udemy/Neil Cummings/eCommerce App/eCommerceApp-API/Data/SeedData/deliveries.json");
+                var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryData);
+                context.DeliveryMethods.AddRange(methods);
+
+            }
+
+            if (context.ChangeTracker.HasChanges()) await context.SaveChangesAsync();// this will save the changes in the database
 
 
 
