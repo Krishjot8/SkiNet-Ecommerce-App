@@ -14,13 +14,13 @@ export class BasketComponent {
 
 incrementQuantity(item: BasketItem){
 
-this.basketService.addItemToBasket(item)
+this.basketService.addItemToBasket(item);
 
 }
 
-removeItem(id : number, quantity: number){
+removeItem(event:{id : number, quantity: number}){
 
-this.basketService.removeItemFromBasket(id , quantity); //we are calling the service method here to remove the item from the basket as well as the quantity
+this.basketService.removeItemFromBasket(event.id , event.quantity); //we are calling the service method here to remove the item from the basket as well as the quantity
 
 }
 
