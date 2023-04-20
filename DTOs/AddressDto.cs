@@ -21,6 +21,6 @@ namespace ECommerce_App.DTOs
         public string State { get; set; }
 
         [Required]
-        public string ZipCode { get; set; }
+        public string Zipcode { get; set; }
     }
 }

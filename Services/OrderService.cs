@@ -38,22 +38,46 @@ namespace ECommerce_App.Services
             //get delivery method from repo
 
             var deliveryMethod = await _unitofwork.Repository<DeliveryMethod>().GetByIdAsync(deliveryMethodId);
-            //create subtotal
 
+            //calc subtotal
             var subtotal = items.Sum(item => item.Price * item.Quantity);
-            //create order
-            var order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal);
-            _unitofwork.Repository<Order>().Add(order);
+
+            //check to see if order exists
+            var spec = new OrderByPaymentIntentIdSpecification(basket.PaymentIntentId);
+            var order = await _unitofwork.Repository<Order>().GetEntityWithSpec(spec);
+
+            if (order != null) //If we already have the order
+            {
+
+                order.ShipToAddress = shippingAddress;
+                order.DeliveryMethod = deliveryMethod;
+                order.Subtotal = subtotal;
+                _unitofwork.Repository<Order>().Update(order);
+
+
+            }
+            else 
+            
+            {
+
+
+
+                //create order
+                order = new Order(items, buyerEmail, shippingAddress, deliveryMethod, subtotal, basket.PaymentIntentId);
+                _unitofwork.Repository<Order>().Add(order);
+
+
+
+            }
+
+          
             //save to db
             var result = await _unitofwork.Complete();
 
             if (result <= 0) return null;
 
 
-            //delete basket
-
-            await _basketRepo.DeleteBasketAsync(basketId);
-
+           
             //return order
 
             return order;
