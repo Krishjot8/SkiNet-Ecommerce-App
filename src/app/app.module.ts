@@ -10,6 +10,9 @@ import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { OrdersComponent } from './orders/orders.component';
+import { OrdersRoutingModule } from './orders/orders-routing.module';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +30,8 @@ BrowserAnimationsModule,
     CoreModule,
     HttpClientModule,
     HomeModule,
-    CommonModule
+    CommonModule,
+    OrdersRoutingModule
 
   ],
 })
