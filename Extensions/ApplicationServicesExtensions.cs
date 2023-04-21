@@ -22,6 +22,7 @@ namespace ECommerce_App.Extensions
                 return ConnectionMultiplexer.Connect(options);
             
             });
+            services.AddSingleton<IResponseCacheService, ResponseCacheService>();
             services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IUnitOfWork , UnitOfWork>();

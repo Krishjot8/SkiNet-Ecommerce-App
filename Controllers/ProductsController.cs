@@ -30,6 +30,8 @@ namespace ECommerce_App.Controllers
             _mapper = mapper;
         }
 
+
+        [Cached(600)]
         [HttpGet]
 
         public async Task<ActionResult <Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productparams)
@@ -45,10 +47,10 @@ namespace ECommerce_App.Controllers
             var data = _mapper.Map<List<Product>, List<ProductToReturnDto>>(products);
             return Ok(new Pagination<ProductToReturnDto>(productparams.PageIndex,productparams.PageSize, totalItems, data));
         }
-        
 
-                
 
+
+        [Cached(600)]
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse),StatusCodes.Status404NotFound)]
@@ -65,7 +67,7 @@ namespace ECommerce_App.Controllers
             return _mapper.Map<Product,ProductToReturnDto>(product);
         }
 
-
+        [Cached(600)]
         [HttpGet("brands")]
 
         public async Task<ActionResult<List<ProductBrand>>> GetProductBrands()
@@ -79,6 +81,7 @@ namespace ECommerce_App.Controllers
         }
 
 
+        [Cached(600)]
         [HttpGet("brands/{id}")]
 
 
@@ -90,6 +93,7 @@ namespace ECommerce_App.Controllers
 
         }
 
+        [Cached(600)]
         [HttpGet("types")]
 
         public async Task<ActionResult<List<ProductType>>> GetProductTypes()
@@ -102,7 +106,7 @@ namespace ECommerce_App.Controllers
 
         }
 
-
+        [Cached(600)]
         [HttpGet("types/{id}")]
 
 

@@ -5,18 +5,19 @@ namespace ECommerce_App.Models.OrderAggregate
     public enum OrderStatus
     {
 
+
         [EnumMember(Value = "Pending")]
 
         Pending,
 
 
-        [EnumMember(Value = "Pending")]
+        [EnumMember(Value = "Payment Recieved")]
 
 
         PaymentRecieved,
 
 
-        [EnumMember(Value = "Pending")]
+        [EnumMember(Value = "Payment Failed")]
 
         PaymentFailed
     }
